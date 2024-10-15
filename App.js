@@ -9,11 +9,10 @@ import {
     FlatList,
 } from "react-native";
 import HomeScreen from "./src/screens/HomeScreen";
-import SettingScreen from "./src/screens/SettingScreen";
-import IntroduceScreen from "./src/screens/IntroduceScreen";
+import LoginScreen from "./src/screens/LoginScreen";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import UserDetail from "./src/screens/UserDetail";
+import SignupScreen from "./src/screens/SignupScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -24,22 +23,15 @@ export default function App() {
                 <Stack.Screen
                     name="Home"
                     component={HomeScreen}
-                    options={{ title: "Trang chủ", headerShown: true }}
+                    options={{ title: "Trang chủ", headerShown: false }}
                 />
                 <Stack.Screen
-                    name="Settings"
-                    component={SettingScreen}
-                    options={{ title: "Cài đặt" }}
+                    name="Login"
+                    component={LoginScreen}
                 />
                 <Stack.Screen
-                    name="Introduce"
-                    component={IntroduceScreen}
-                    options={{ title: "Giới thiệu" }}
-                />
-                <Stack.Screen
-                    name="UserDetail"
-                    component={UserDetail}
-                    options={{ title: "chi tiết người dùng" }}
+                    name="Signup"
+                    component={SignupScreen}
                 />
             </Stack.Navigator>
         </NavigationContainer>
