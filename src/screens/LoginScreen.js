@@ -1,62 +1,70 @@
 import React, { useState } from "react";
-import {
-    View,
-    Text,
-    TouchableOpacity,
-    Modal,
-    StyleSheet,
-    TextInput,
-    Alert,
-} from "react-native";
-import { Ionicons } from "@expo/vector-icons";
-function LoginScreen({ props, navigation }) {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+import { View, StyleSheet, Text } from "react-native";
+import { TextInput, Button } from "react-native-paper";
+import Animated from "react-native-reanimated";
+import { useDispatch } from "react-redux";
+import { login } from "../stores/actions/authActions";
+import Toast from "react-native-toast-message";
 
-    const handleLogin = () => {
-        if (checkPassword(password)) {
-  
-        }
+export default function LoginScreen({ navigation }) {
+    const [email, setEmail] = useState("admin@example.com");
+    const [password, setPassword] = useState("123456");
+    const dispatch = useDispatch();
 
-        return;
-        if (email == "" || password == "") {
-            Alert.alert("Error", "Vui lòng nhập đủ thông tin đăng nhập");
-            return;
+    const handleLogin = async () => {
+        const form_data = new FormData();
+        form_data.append('email', email);
+        form_data.append('password', password);
+
+        try {
+            await dispatch(login(form_data));
+            Toast.show({
+                type: 'success',
+                text1: 'Login successful',
+            });
+            navigation.navigate('Home');
+        } catch (error) {
+            Toast.show({
+                type: 'error',
+                text1: 'Login failed',
+                text2: 'Invalid email or password',
+            });
         }
     };
 
-    function checkPassword(str) {
-        var re = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
-        return re.test(str);
-    }
-
     return (
-        <View style={styles.container}>
+        <View style={{ padding: 20 }}>
             <Text style={styles.title}>Login</Text>
-
             <TextInput
+                label="Email"
+                mode="outlined"
                 style={styles.input}
-                placeholder="Email or phone number"
                 value={email}
                 onChangeText={setEmail}
             />
             <TextInput
-                style={styles.input}
-                placeholder="Password"
+                label="Password"
+                mode="outlined"
                 value={password}
                 onChangeText={setPassword}
+                style={styles.input}
+                secureTextEntry
             />
-
-            <TouchableOpacity
-                style={styles.button}
+            <Button
+                mode="contained"
                 onPress={() => handleLogin()}
+                style={styles.button}
             >
-                <Text style={styles.button_text}>Login</Text>
-            </TouchableOpacity>
+                Login
+            </Button>
 
-            <TouchableOpacity onPress={() => navigation.navigate("Signup")}>
-                <Text style={styles.link}>Sign up</Text>
-            </TouchableOpacity>
+            <Button
+                mode="text"
+                onPress={() => navigation.navigate("Signup")}
+                style={styles.link}
+            >
+                Sign up
+            </Button>
         </View>
     );
 }
@@ -64,42 +72,28 @@ function LoginScreen({ props, navigation }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 20,
-        backgroundColor: "#fff",
         justifyContent: "center",
+        paddingHorizontal: 20,
+        backgroundColor: "#F4F3EF",
     },
     title: {
-        fontSize: 28,
-        marginBottom: 40,
+        fontSize: 24,
+        fontWeight: "bold",
+        marginBottom: 20,
+        color: "#333",
         textAlign: "center",
-        fontWeight: "blod",
     },
     input: {
-        height: 50,
-        borderColor: "#ccc",
-        borderWidth: 1,
-        borderRadius: 8,
-        paddingHorizontal: 15,
         marginBottom: 20,
-        fontSize: 16,
+        backgroundColor: "#FFF9E1",
     },
     button: {
-        backgroundColor: "#4CAF50",
-        paddingVertical: 15,
-        borderRadius: 8,
-        marginBottom: 20,
-    },
-    button_text: {
-        color: "#fff",
-        textAlign: "center",
-        fontSize: 18,
-        fontWeight: "bold",
+        marginTop: 20,
+        paddingVertical: 10,
+        backgroundColor: "#F5C518",
     },
     link: {
-        color: "#1E90FF",
-        textAlign: "center",
-        fontSize: 16,
+        marginTop: 10,
+        color: "#F5C518",
     },
 });
-
-export default LoginScreen;
