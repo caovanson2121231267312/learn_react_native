@@ -4,13 +4,13 @@ const initialState = {
     currentPage: 1,
 };
 
-export const userReducer = (state = initialState, action) => {
+export const supplierReducer = (state = initialState, action) => {
     switch (action.type) {
-        case "FETCH_USERS":
+        case "GET_SUPPLIER":
             // console.log(action.payload.data)
             return {
                 ...state,
-                users: action.payload,
+                suppliers: action.payload,
                 totalPages: action.payload.totalPages,
                 currentPage: action.payload.currentPage,
             };

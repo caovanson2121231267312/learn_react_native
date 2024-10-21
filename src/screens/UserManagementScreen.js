@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchUsers, deleteUser } from "../stores/actions/userActions";
 import { Button, TextInput, Card, Paragraph, Title } from "react-native-paper";
 
-export default function UserManagementScreen() {
+export default function UserManagementScreen({ navigation }) {
     const [search, setSearch] = useState("");
     const dispatch = useDispatch();
     const { users, totalPages, currentPage } = useSelector(
@@ -73,7 +73,7 @@ export default function UserManagementScreen() {
                 <FlatList
                     data={users}
                     renderItem={renderUser}
-                    keyExtractor={(item) => (parseInt(item.user_id))}
+                    keyExtractor={(item) => parseInt(item.user_id)}
                     style={styles.list}
                 />
             )}
@@ -94,7 +94,7 @@ export default function UserManagementScreen() {
             <Button
                 mode="contained"
                 style={styles.addButton}
-                onPress={() => console.log("Navigate to add user")}
+                onPress={() => navigation.navigate("AddUser")}
             >
                 Add User
             </Button>

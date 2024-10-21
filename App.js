@@ -12,6 +12,7 @@ import {
 import HomeScreen from "./src/screens/HomeScreen";
 // import AboutScreen from "./screens/AboutScreen";
 import UserManagementScreen from "./src/screens/UserManagementScreen";
+import AddUserScreen from "./src/screens/AddUserScreen";
 // import CategoryManagementScreen from "./screens/CategoryManagementScreen";
 import LoginScreen from "./src/screens/LoginScreen";
 import ToDoScreen from "./src/screens/ToDoScreen";
@@ -100,6 +101,15 @@ function AppStack() {
                 component={UserManagementScreen}
                 options={{
                     title: "User Management",
+                    headerStyle: { backgroundColor: theme.colors.primary },
+                    headerTintColor: "#333",
+                }}
+            />
+            <Stack.Screen
+                name="AddUser"
+                component={AddUserScreen}
+                options={{
+                    title: "Add User",
                     headerStyle: { backgroundColor: theme.colors.primary },
                     headerTintColor: "#333",
                 }}
