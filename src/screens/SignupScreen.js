@@ -7,11 +7,41 @@ import {
     StyleSheet,
     TextInput,
 } from "react-native";
+import { signup } from "../stores/actions/authActions";
+import Toast from "react-native-toast-message";
+import { useDispatch } from "react-redux";
 function SignupScreen({ props, navigation }) {
     const [email, setEmail] = useState("");
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [confirm, setConfirm] = useState("");
+
+    const dispatch = useDispatch();
+
+    async function handleSignUp() {
+
+        const form_data = new FormData();
+        form_data.append("email", email);
+        form_data.append("name", username);
+        form_data.append("password", password);
+        form_data.append("password_confirmation", confirm);
+
+        try {
+            await dispatch(signup(form_data));
+            Toast.show({
+                type: 'success',
+                text1: 'Sign up successful',
+            });
+            navigation.navigate('Login');
+        } catch (error) {
+            Toast.show({
+                type: 'error',
+                text1: 'Sign up failed',
+                text2: 'Invalid email or password',
+            });
+        }
+    }
+
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Sign Up</Text>
@@ -39,7 +69,10 @@ function SignupScreen({ props, navigation }) {
                 value={confirm}
                 onChangeText={setConfirm}
             />
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity
+                style={styles.button}
+                onPress={() => handleSignUp()}
+            >
                 <Text style={styles.text}>Sign Up</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigate("Login")}>

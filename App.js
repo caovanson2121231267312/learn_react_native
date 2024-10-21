@@ -2,7 +2,7 @@ import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import Toast from 'react-native-toast-message'
+import Toast from "react-native-toast-message";
 import {
     IconButton,
     DefaultTheme,
@@ -11,14 +11,15 @@ import {
 // import Animated from "react-native-reanimated";
 import HomeScreen from "./src/screens/HomeScreen";
 // import AboutScreen from "./screens/AboutScreen";
-// import UserManagementScreen from "./screens/UserManagementScreen";
+import UserManagementScreen from "./src/screens/UserManagementScreen";
 // import CategoryManagementScreen from "./screens/CategoryManagementScreen";
 import LoginScreen from "./src/screens/LoginScreen";
 import ToDoScreen from "./src/screens/ToDoScreen";
-// import SignupScreen from "./screens/SignupScreen";
+import SignupScreen from "./src/screens/SignupScreen";
 import { DrawerContent } from "./src/components/layout/DrawerContent";
 import { Provider } from "react-redux";
 import store from "./src/stores/store";
+import SupplierManagementScreen from "./src/screens/SupplierManagementScreen";
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -71,23 +72,47 @@ function AppStack() {
                     headerTintColor: "#333",
                 }}
             />
-            {/* <Stack.Screen name="About" component={AboutScreen} options={({ navigation }) => ({
-        headerLeft: () => <IconButton icon="menu" onPress={() => navigation.toggleDrawer()} color="#333" />,
-        headerRight: () => <IconButton icon="bell" onPress={() => alert('Notifications')} color="#333" />,
-        title: 'About Us',
-        headerStyle: { backgroundColor: theme.colors.primary },
-        headerTintColor: '#333',
-      })} />
-      <Stack.Screen name="UserManagement" component={UserManagementScreen} options={{
-        title: 'User Management',
-        headerStyle: { backgroundColor: theme.colors.primary },
-        headerTintColor: '#333',
-      }} />
-      <Stack.Screen name="CategoryManagement" component={CategoryManagementScreen} options={{
-        title: 'Category Management',
-        headerStyle: { backgroundColor: theme.colors.primary },
-        headerTintColor: '#333', */}
-            {/* }} /> */}
+            {/* <Stack.Screen
+                name="About"
+                component={AboutScreen}
+                options={({ navigation }) => ({
+                    headerLeft: () => (
+                        <IconButton
+                            icon="menu"
+                            onPress={() => navigation.toggleDrawer()}
+                            color="#333"
+                        />
+                    ),
+                    headerRight: () => (
+                        <IconButton
+                            icon="bell"
+                            onPress={() => alert("Notifications")}
+                            color="#333"
+                        />
+                    ),
+                    title: "About Us",
+                    headerStyle: { backgroundColor: theme.colors.primary },
+                    headerTintColor: "#333",
+                })}
+            /> */}
+            <Stack.Screen
+                name="UserManagement"
+                component={UserManagementScreen}
+                options={{
+                    title: "User Management",
+                    headerStyle: { backgroundColor: theme.colors.primary },
+                    headerTintColor: "#333",
+                }}
+            />
+            {/* <Stack.Screen
+                name="CategoryManagement"
+                component={CategoryManagementScreen}
+                options={{
+                    title: "Category Management",
+                    headerStyle: { backgroundColor: theme.colors.primary },
+                    headerTintColor: "#333",
+                }}
+            /> */}
             <Stack.Screen
                 name="Login"
                 component={LoginScreen}
@@ -97,11 +122,24 @@ function AppStack() {
                     headerTintColor: "#333",
                 }}
             />
-            {/* <Stack.Screen name="Signup" component={SignupScreen} options={{
-        title: 'Sign Up',
-        headerStyle: { backgroundColor: theme.colors.primary },
-        headerTintColor: '#333',
-      }} /> */}
+            <Stack.Screen
+                name="SupplierManagement"
+                component={SupplierManagementScreen}
+                options={{
+                    title: "Supplier Management",
+                    headerStyle: { backgroundColor: theme.colors.primary },
+                    headerTintColor: "#333",
+                }}
+            />
+            <Stack.Screen
+                name="Signup"
+                component={SignupScreen}
+                options={{
+                    title: "Sign Up",
+                    headerStyle: { backgroundColor: theme.colors.primary },
+                    headerTintColor: "#333",
+                }}
+            />
         </Stack.Navigator>
     );
 }

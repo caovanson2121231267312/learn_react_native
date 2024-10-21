@@ -7,8 +7,11 @@ import { login } from "../stores/actions/authActions";
 import Toast from "react-native-toast-message";
 
 export default function LoginScreen({ navigation }) {
+
     const [email, setEmail] = useState("admin@example.com");
+
     const [password, setPassword] = useState("123456");
+
     const dispatch = useDispatch();
 
     const handleLogin = async () => {
@@ -18,6 +21,7 @@ export default function LoginScreen({ navigation }) {
 
         try {
             await dispatch(login(form_data));
+            
             Toast.show({
                 type: 'success',
                 text1: 'Login successful',

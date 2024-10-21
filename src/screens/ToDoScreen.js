@@ -1,10 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, Button, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, { useState, useEffect } from "react";
+import {
+    View,
+    Text,
+    TextInput,
+    Button,
+    FlatList,
+    TouchableOpacity,
+    StyleSheet,
+} from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const ToDoScreen = () => {
     const [todos, setTodos] = useState([]);
-    const [text, setText] = useState('');
+    const [text, setText] = useState("");
     const [isEditing, setIsEditing] = useState(false);
     const [currentTodo, setCurrentTodo] = useState(null);
 
@@ -12,22 +20,22 @@ const ToDoScreen = () => {
     const storeTodos = async (todos) => {
         try {
             const jsonValue = JSON.stringify(todos);
-            await AsyncStorage.setItem('todos', jsonValue);
+            await AsyncStorage.setItem("todos", jsonValue);
         } catch (e) {
-            console.log('Saving error', e);
+            console.log("Saving error", e);
         }
     };
 
     // Hàm lấy danh sách nhiệm vụ từ AsyncStorage
     const loadTodos = async () => {
         try {
-            const jsonValue = await AsyncStorage.getItem('todos');
-            console.log(jsonValue)
+            const jsonValue = await AsyncStorage.getItem("todos");
+            console.log(jsonValue);
             if (jsonValue != null) {
                 setTodos(JSON.parse(jsonValue));
             }
         } catch (e) {
-            console.log('Loading error', e);
+            console.log("Loading error", e);
         }
     };
 
@@ -47,24 +55,24 @@ const ToDoScreen = () => {
         if (text.trim()) {
             const newTodos = [...todos, { id: Date.now().toString(), text }];
             setTodos(newTodos);
-            setText('');
+            setText("");
         }
     };
 
     const editTodo = () => {
         if (currentTodo) {
-            const updatedTodos = todos.map(todo =>
+            const updatedTodos = todos.map((todo) =>
                 todo.id === currentTodo.id ? { ...todo, text } : todo
             );
             setTodos(updatedTodos);
-            setText('');
+            setText("");
             setIsEditing(false);
             setCurrentTodo(null);
         }
     };
 
     const deleteTodo = (id) => {
-        const updatedTodos = todos.filter(todo => todo.id !== id);
+        const updatedTodos = todos.filter((todo) => todo.id !== id);
         setTodos(updatedTodos);
     };
 
@@ -83,21 +91,23 @@ const ToDoScreen = () => {
                 onChangeText={setText}
             />
             <Button
-                title={isEditing ? 'Update Task' : 'Add Task'}
+                title={isEditing ? "Update Task" : "Add Task"}
                 onPress={isEditing ? editTodo : addTodo}
             />
 
             <FlatList
                 data={todos}
-                keyExtractor={item => item.id}
+                keyExtractor={(item) => item.id}
                 renderItem={({ item }) => (
                     <View style={styles.todoItem}>
                         <Text>{item.text}</Text>
                         <View style={styles.actions}>
-<TouchableOpacity onPress={() => startEdit(item)}>
+                            <TouchableOpacity onPress={() => startEdit(item)}>
                                 <Text style={styles.editText}>Edit</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity onPress={() => deleteTodo(item.id)}>
+                            <TouchableOpacity
+                                onPress={() => deleteTodo(item.id)}
+                            >
                                 <Text style={styles.deleteText}>Delete</Text>
                             </TouchableOpacity>
                         </View>
@@ -112,30 +122,30 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 20,
-        backgroundColor: '#fff'
+        backgroundColor: "#fff",
     },
     input: {
         borderBottomWidth: 1,
         marginBottom: 10,
-        padding: 8
+        padding: 8,
     },
     todoItem: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
+        flexDirection: "row",
+        justifyContent: "space-between",
         padding: 10,
         borderBottomWidth: 1,
-        borderBottomColor: '#ccc'
+        borderBottomColor: "#ccc",
     },
     actions: {
-        flexDirection: 'row'
+        flexDirection: "row",
     },
     editText: {
-        color: 'blue',
-        marginRight: 10
+        color: "blue",
+        marginRight: 10,
     },
     deleteText: {
-        color: 'red'
-    }
+        color: "red",
+    },
 });
 
 export default ToDoScreen;

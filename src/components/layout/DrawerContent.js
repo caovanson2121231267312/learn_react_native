@@ -22,7 +22,7 @@ export function DrawerContent(props) {
     }, [dispatch]);
 
     const handleLogout = () => {
-        console.log("logout");
+        // console.log("logout");
         dispatch(logout());
         props.navigation.navigate("Login");
     };
@@ -41,7 +41,7 @@ export function DrawerContent(props) {
                             size={50}
                         />
                         <Title style={styles.title}>{user.name}</Title>
-                        <Caption style={styles.caption}>@{user.name}</Caption>
+                        <Caption style={styles.caption}>@{user.email}</Caption>
                     </>
                 ) : (
                     <View style={styles.authLinks}>
@@ -85,6 +85,12 @@ export function DrawerContent(props) {
                             label="Category Management"
                             onPress={() =>
                                 props.navigation.navigate("CategoryManagement")
+                            }
+                        />
+                        <Drawer.Item
+                            label="Supplier Management"
+                            onPress={() =>
+                                props.navigation.navigate("SupplierManagement")
                             }
                         />
                     </>

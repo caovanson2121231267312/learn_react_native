@@ -9,7 +9,7 @@ export const login = (formData) => async (dispatch) => {
 
         const token = response.data.access_token;
         const user = response.data.user;
-        await AsyncStorage.setItem("user", JSON.stringify(user));
+        await AsyncStorage.setItem("user", JSON.stringify(user)); //lưu người dùng và token vào thiết bị
         await AsyncStorage.setItem("token", token);
 
         await console.log(AsyncStorage.getItem("token"));
@@ -26,6 +26,16 @@ export const login = (formData) => async (dispatch) => {
     }
 };
 
+export const signup = (formData) => async (dispatch) => {
+    try {
+        const reponse = await api.post("api/register", formData, {
+            "Content-Type": "multipart/form-data",
+        });
+    } catch (error) {
+        console.log(error);
+    }
+};
+
 export const checkToken = () => async (dispatch) => {
     try {
         const token = await AsyncStorage.getItem("token");
@@ -35,13 +45,10 @@ export const checkToken = () => async (dispatch) => {
             return false;
         }
 
-        const response = await api.get(
-            "api/user-profile",
-            {
-                "Content-Type": "application/json",
-                Authorization: "Bearer " + token,
-            }
-        );
+        const response = await api.get("api/user-profile", {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + token,
+        });
 
         if (response.data) {
             const user = response.data;

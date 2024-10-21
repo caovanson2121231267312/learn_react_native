@@ -5,8 +5,9 @@ const api = {
     async get(url, headers = {}) {
         try {
             const data = await axios.get(api_url + url, { headers: headers })
+            console.log(api_url + url)
             // console.log(data)
-            console.log(url)
+
             return await data
         } catch (e) {
             throw e
