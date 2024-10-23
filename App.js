@@ -21,7 +21,7 @@ import { DrawerContent } from "./src/components/layout/DrawerContent";
 import { Provider } from "react-redux";
 import store from "./src/stores/store";
 import SupplierManagementScreen from "./src/screens/SupplierManagementScreen";
-
+import AddSupplier from "./src/screens/AddSupplier";
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
@@ -105,11 +105,12 @@ function AppStack() {
                     headerTintColor: "#333",
                 }}
             />
+            
             <Stack.Screen
-                name="AddUser"
-                component={AddUserScreen}
+                name="AddSupplier"
+                component={AddSupplier}
                 options={{
-                    title: "Add User",
+                    title: "Add Supplier",
                     headerStyle: { backgroundColor: theme.colors.primary },
                     headerTintColor: "#333",
                 }}

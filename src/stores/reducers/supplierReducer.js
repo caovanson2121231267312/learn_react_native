@@ -1,15 +1,22 @@
+import {
+    FETCH_SUPPLIER,
+    ADD_SUPPLIER,
+    EDIT_SUPPLIER,
+    DELETE_SUPPLIER,
+} from "../actions/supplierActions";
+
 const initialState = {
-    users: [],
+    suppliers: [],
     totalPages: 1,
     currentPage: 1,
 };
 
 export const supplierReducer = (state = initialState, action) => {
     switch (action.type) {
-        case "GET_SUPPLIER":
+        case FETCH_SUPPLIER:
             // console.log(action.payload.data)
             return {
-                ...state,
+                // ...state,
                 suppliers: action.payload,
                 totalPages: action.payload.totalPages,
                 currentPage: action.payload.currentPage,

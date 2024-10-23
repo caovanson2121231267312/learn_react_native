@@ -17,10 +17,14 @@ const api = {
     async post(url, data = {}, headers = {}) {
         try {
             console.log(api_url + url)
-            const response = await axios.post(api_url + url, data, { headers: headers })
-            console.log(response?.data)
+            const response = await axios.post(api_url + url, data, { headers: headers ,timeout: 15000})
+            // await console.log(await response?.data)
             return response
         } catch (e) {
+            // console.log(e.response.data)
+            // console.log(e.request)
+            // console.log(e.message)
+            // console.log( e.config)
             throw e
         }
     },
@@ -35,13 +39,14 @@ const api = {
         }
     },
 
-    async delete(url, data = {}) {
+    async delete(url, data = {}, headers = {}) {
         try {
-            let result = await axios.delete(url, data)
+            console.log(api_url + url)
+            let result = await axios.delete(api_url + url, data, headers)
 
             return result
         } catch (e) {
-            return e
+            throw e
         }
     }
 }

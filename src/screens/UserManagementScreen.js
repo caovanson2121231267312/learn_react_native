@@ -73,7 +73,7 @@ export default function UserManagementScreen({ navigation }) {
                 <FlatList
                     data={users}
                     renderItem={renderUser}
-                    keyExtractor={(item) => parseInt(item.user_id)}
+                    keyExtractor={(item) => parseInt(item.user_id) * Math.floor(Math.random() * 100)}
                     style={styles.list}
                 />
             )}

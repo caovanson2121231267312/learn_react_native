@@ -28,19 +28,29 @@ export default function AddUserScreen({ navigation }) {
     }, []);
 
     const handleAddUser = () => {
-        const newUser = {
-            name,
-            email,
-            password,
-            image: imageUri, // Store image URI
-            dateOfBirth,
-        };
-        dispatch(addUser(newUser));
-        navigation.goBack(); // Go back to user list after adding
+        if (!imageUri) return;
+        const fileUri = imageUri;
+        const fileType = fileUri.split('.').pop();
+        let formData = new FormData();
+        formData.append('avatar', {
+            uri: fileUri,
+            name: `photo.${fileType}`,
+            type: `image/${fileType}`,
+        });
+        formData.append('name', name);
+        formData.append('email', email);
+        formData.append('password', password);
+        formData.append('active_status', 'active');
+        formData.append('dateOfBirth', dateOfBirth);
+        // console.log(dateOfBirth)
+        // console.log(name)
+        // console.log(email)
+        // console.log(password)
+        dispatch(addUser(formData));
+        // navigation.goBack();
     };
 
     const selectImage = async () => {
-
         // ImagePicker.launchCameraAsync({
         //     mediaType: 'photo',
         //     base64: true,
