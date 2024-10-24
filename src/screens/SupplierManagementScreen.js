@@ -1,50 +1,50 @@
 import React, { useEffect, useState } from "react";
-import { View, FlatList, StyleSheet } from "react-native";
+import { View, FlatList, StyleSheet, Alert } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import {
-    delete_supplier,
-    fetch_supplier,
-} from "../stores/actions/supplierActions";
+import { delete_supplier, fetch_supplier } from "../stores/actions/supplierActions";
 import { Button, TextInput, Card, Paragraph, Title } from "react-native-paper";
 import Toast from "react-native-toast-message";
 
-function SupplierManagementScreen({ navigation, props }) {
+function SupplierManagementScreen({ navigation }) {
     const [search, setSearch] = useState("");
     const [phoneNumber, setSearchPhoneNumber] = useState("");
     const dispatch = useDispatch();
-    const { suppliers, totalPages, currentPage } = useSelector(
-        (state) => state.suppliers
-    );
+    const { suppliers, totalPages, currentPage } = useSelector((state) => state.suppliers);
 
     useEffect(() => {
         dispatch(fetch_supplier(currentPage, search, phoneNumber));
-        // console.log(users);
     }, [dispatch, currentPage]);
-
-    // useEffect(() => {
-    //     console.log(users);
-    // }, [users]);
 
     const handleSearch = () => {
         dispatch(fetch_supplier(1, search, phoneNumber));
     };
 
-    const handleDelete = async (id) => {
-        console.log(id);
+    const handleDeleteUser = (userId) => {
+        Alert.alert(
+            "Delete Supplier",
+            "Are you sure you want to delete this supplier?",
+            [
+                { text: "Cancel", style: "cancel" },
+                { text: "OK", onPress: () => handleDelete(userId) }
+            ],
+            { cancelable: true }
+        );
+    };
 
+    const handleDelete = async (id) => {
         try {
             await dispatch(delete_supplier(id));
             await dispatch(fetch_supplier(1, search, phoneNumber));
 
             Toast.show({
                 type: "success",
-                text1: "Delete supplier successful",
+                text1: "Supplier deleted successfully",
             });
         } catch (error) {
             Toast.show({
                 type: "error",
-                text1: "delete supplier failed",
-                text2: "Invalid email or password",
+                text1: "Delete failed",
+                text2: "An error occurred",
             });
         }
     };
@@ -59,33 +59,35 @@ function SupplierManagementScreen({ navigation, props }) {
             <Card.Actions>
                 <Button
                     mode="contained"
-                    onPress={() =>
-                        console.log("Edit supplier", item.supplier_id)
-                    }
+                    color="#008CBA" // Blue for Edit
+                    onPress={() => console.log("Edit supplier", item.supplier_id)}
+                    style={styles.button}
                 >
                     Edit
                 </Button>
                 <Button
                     mode="contained"
-                    color="red"
-                    onPress={() => handleDelete(item.supplier_id)}
+                    color="#f44336" // Red for Delete
+                    onPress={() => handleDeleteUser(item.supplier_id)}
+                    style={styles.button}
                 >
                     Delete
                 </Button>
             </Card.Actions>
         </Card>
     );
+
     return (
         <View style={styles.container}>
             <TextInput
-                label="Tìm kiếm nhà cung cấp"
+                label="Search Supplier"
                 value={search}
                 onChangeText={setSearch}
                 style={styles.searchInput}
                 mode="outlined"
             />
             <TextInput
-                label="Tìm kiếm theo số điện thoại"
+                label="Search by Phone Number"
                 value={phoneNumber}
                 onChangeText={setSearchPhoneNumber}
                 style={styles.searchInput}
@@ -95,6 +97,7 @@ function SupplierManagementScreen({ navigation, props }) {
                 mode="contained"
                 onPress={handleSearch}
                 style={styles.searchButton}
+                color="#4CAF50" // Green for Search
             >
                 Search
             </Button>
@@ -103,16 +106,14 @@ function SupplierManagementScreen({ navigation, props }) {
                 <FlatList
                     data={suppliers}
                     renderItem={renderSuppliers}
-                    keyExtractor={(item) =>
-                        parseInt(item.supplier_id) *
-                        Math.floor(Math.random() * 100)
-                    }
+                    keyExtractor={(item) => String(item.supplier_id)}
                     style={styles.list}
                 />
             )}
             <Button
                 mode="contained"
                 style={styles.addButton}
+                color="#FF9800" // Orange for Add Supplier
                 onPress={() => navigation.navigate("AddSupplier")}
             >
                 Add Supplier
@@ -120,10 +121,12 @@ function SupplierManagementScreen({ navigation, props }) {
         </View>
     );
 }
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 20,
+        backgroundColor: "#f5f5f5",
     },
     searchInput: {
         marginBottom: 10,
@@ -134,13 +137,11 @@ const styles = StyleSheet.create({
     card: {
         marginBottom: 15,
     },
+    button: {
+        marginRight: 10,
+    },
     list: {
         flex: 1,
-    },
-    pagination: {
-        flexDirection: "row",
-        justifyContent: "center",
-        marginVertical: 20,
     },
     addButton: {
         marginTop: 20,

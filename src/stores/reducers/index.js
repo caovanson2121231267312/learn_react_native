@@ -7,4 +7,5 @@ export default combineReducers({
     auth: authReducer,
     users: userReducer, // Add the userReducer here
     suppliers: supplierReducer,
+    supplierMaterial
 });
