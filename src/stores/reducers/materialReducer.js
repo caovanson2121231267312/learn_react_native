@@ -1,9 +1,6 @@
 import {
-    FETCH_SUPPLIER,
-    ADD_SUPPLIER,
-    EDIT_SUPPLIER,
-    DELETE_SUPPLIER,
-} from "../actions/supplierActions";
+    FETCH_MATERIAL,
+} from "../actions/materialAction";
 
 const initialState = {
     materials: [],
@@ -11,12 +8,11 @@ const initialState = {
     currentPage: 1,
 };
 
-export const supplierMaterial = (state = initialState, action) => {
+export const materialReducer = (state = initialState, action) => {
     switch (action.type) {
-        case FETCH_SUPPLIER:
-            // console.log(action.payload.data)
+        case FETCH_MATERIAL:
             return {
-                // ...state,
+                ...state,
                 materials: action.payload,
                 totalPages: action.payload.totalPages,
                 currentPage: action.payload.currentPage,

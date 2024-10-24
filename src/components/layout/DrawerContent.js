@@ -93,6 +93,12 @@ export function DrawerContent(props) {
                                 props.navigation.navigate("SupplierManagement")
                             }
                         />
+                        <Drawer.Item
+                            label="Material Management"
+                            onPress={() =>
+                                props.navigation.navigate("MaterialScreen")
+                            }
+                        />
                     </>
                 )}
                 {user && (

@@ -21,6 +21,8 @@ import { DrawerContent } from "./src/components/layout/DrawerContent";
 import { Provider } from "react-redux";
 import store from "./src/stores/store";
 import SupplierManagementScreen from "./src/screens/SupplierManagementScreen";
+import AddMaterialScreen from "./src/screens/AddMaterialScreen";
+import MaterialScreen from "./src/screens/MaterialScreen";
 import AddSupplier from "./src/screens/AddSupplier";
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -73,29 +75,6 @@ function AppStack() {
                     headerTintColor: "#333",
                 }}
             />
-            {/* <Stack.Screen
-                name="About"
-                component={AboutScreen}
-                options={({ navigation }) => ({
-                    headerLeft: () => (
-                        <IconButton
-                            icon="menu"
-                            onPress={() => navigation.toggleDrawer()}
-                            color="#333"
-                        />
-                    ),
-                    headerRight: () => (
-                        <IconButton
-                            icon="bell"
-                            onPress={() => alert("Notifications")}
-                            color="#333"
-                        />
-                    ),
-                    title: "About Us",
-                    headerStyle: { backgroundColor: theme.colors.primary },
-                    headerTintColor: "#333",
-                })}
-            /> */}
             <Stack.Screen
                 name="UserManagement"
                 component={UserManagementScreen}
@@ -105,7 +84,7 @@ function AppStack() {
                     headerTintColor: "#333",
                 }}
             />
-            
+
             <Stack.Screen
                 name="AddSupplier"
                 component={AddSupplier}
@@ -115,15 +94,6 @@ function AppStack() {
                     headerTintColor: "#333",
                 }}
             />
-            {/* <Stack.Screen
-                name="CategoryManagement"
-                component={CategoryManagementScreen}
-                options={{
-                    title: "Category Management",
-                    headerStyle: { backgroundColor: theme.colors.primary },
-                    headerTintColor: "#333",
-                }}
-            /> */}
             <Stack.Screen
                 name="Login"
                 component={LoginScreen}
@@ -138,6 +108,24 @@ function AppStack() {
                 component={SupplierManagementScreen}
                 options={{
                     title: "Supplier Management",
+                    headerStyle: { backgroundColor: theme.colors.primary },
+                    headerTintColor: "#333",
+                }}
+            />
+            <Stack.Screen
+                name="MaterialScreen"
+                component={MaterialScreen}
+                options={{
+                    title: "Material Management",
+                    headerStyle: { backgroundColor: theme.colors.primary },
+                    headerTintColor: "#333",
+                }}
+            />
+            <Stack.Screen
+                name="AddMaterial"
+                component={AddMaterialScreen}
+                options={{
+                    title: "Add Material",
                     headerStyle: { backgroundColor: theme.colors.primary },
                     headerTintColor: "#333",
                 }}

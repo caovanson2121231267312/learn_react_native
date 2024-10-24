@@ -26,9 +26,10 @@ export const fetch_materials =
             console.log(error);
         }
     };
+    
 export const add_materials = (supplierData) => async (dispatch) => {
     try {
-        const token = await AsyncStorage.getItem('token');
+        const token = await AsyncStorage.getItem("token");
         if (!token) {
             return false;
         }
@@ -41,21 +42,20 @@ export const add_materials = (supplierData) => async (dispatch) => {
     }
 };
 
-export const delete_materials = (id) => async(dispatch) =>{
-    try{
-        const token = await AsyncStorage.getItem('token');
-        if(!token){
+export const delete_materials = (id) => async (dispatch) => {
+    try {
+        const token = await AsyncStorage.getItem("token");
+        if (!token) {
             return false;
         }
         var formData = new FormData();
         formData.append("_method", "delete");
 
-        const response = await api.delete('api/materials/' + id, formData,{
+        const response = await api.delete("api/materials/" + id, formData, {
             "Content-Type": "multipart/form-data",
             Authorization: "Bearer " + token,
         });
-
-    }catch(error){
-        console.log(error)
+    } catch (error) {
+        console.log(error);
     }
-}
+};
