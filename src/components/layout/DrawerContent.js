@@ -66,10 +66,6 @@ export function DrawerContent(props) {
                     onPress={() => props.navigation.navigate("Home")}
                 />
                 <Drawer.Item
-                    label="About Us"
-                    onPress={() => props.navigation.navigate("About")}
-                />
-                <Drawer.Item
                     label="To do"
                     onPress={() => props.navigation.navigate("todo")}
                 />
@@ -82,12 +78,6 @@ export function DrawerContent(props) {
                             }
                         />
                         <Drawer.Item
-                            label="Category Management"
-                            onPress={() =>
-                                props.navigation.navigate("CategoryManagement")
-                            }
-                        />
-                        <Drawer.Item
                             label="Supplier Management"
                             onPress={() =>
                                 props.navigation.navigate("SupplierManagement")
@@ -97,6 +87,12 @@ export function DrawerContent(props) {
                             label="Material Management"
                             onPress={() =>
                                 props.navigation.navigate("MaterialScreen")
+                            }
+                        />
+                        <Drawer.Item
+                            label="Project Management"
+                            onPress={() =>
+                                props.navigation.navigate("ProjectManagement")
                             }
                         />
                     </>

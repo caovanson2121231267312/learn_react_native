@@ -23,6 +23,10 @@ import store from "./src/stores/store";
 import SupplierManagementScreen from "./src/screens/SupplierManagementScreen";
 import AddMaterialScreen from "./src/screens/AddMaterialScreen";
 import MaterialScreen from "./src/screens/MaterialScreen";
+import ProjectManagementScreen from "./src/screens/ProjectManagementScreen";
+import AddProjectScreen from "./src/screens/AddProjectScreen";
+import TaskListScreen from "./src/screens/TaskListScreen";
+import AddTaskScreen from "./src/screens/AddTaskScreen";
 import AddSupplier from "./src/screens/AddSupplier";
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -126,6 +130,42 @@ function AppStack() {
                 component={AddMaterialScreen}
                 options={{
                     title: "Add Material",
+                    headerStyle: { backgroundColor: theme.colors.primary },
+                    headerTintColor: "#333",
+                }}
+            />
+            <Stack.Screen
+                name="ProjectManagement"
+                component={ProjectManagementScreen}
+                options={{
+                    title: "Project Management",
+                    headerStyle: { backgroundColor: theme.colors.primary },
+                    headerTintColor: "#333",
+                }}
+            />
+            <Stack.Screen
+                name="AddProject"
+                component={AddProjectScreen}
+                options={{
+                    title: "Add Project",
+                    headerStyle: { backgroundColor: theme.colors.primary },
+                    headerTintColor: "#333",
+                }}
+            />
+            <Stack.Screen
+                name="TaskList"
+                component={TaskListScreen}
+                options={{
+                    title: "Task List",
+                    headerStyle: { backgroundColor: theme.colors.primary },
+                    headerTintColor: "#333",
+                }}
+            />
+            <Stack.Screen
+                name="AddTask"
+                component={AddTaskScreen}
+                options={{
+                    title: "Add Task",
                     headerStyle: { backgroundColor: theme.colors.primary },
                     headerTintColor: "#333",
                 }}
